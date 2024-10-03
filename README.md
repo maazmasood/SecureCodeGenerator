@@ -47,6 +47,7 @@ pip install pycryptodome qrcode[pil] Pillow
 3. Enter the required information in the GUI:
    - **Encryption Key:** The key used for AES encryption (must be a valid string).
    - **Security Code Prefix:** A prefix to append to the generated security codes.
+   - **Base URL:** Your Website Domain with the desired page link.
    - **Start Code Number:** The starting number for the security code range.
    - **End Code Number:** The ending number for the security code range.
 
