@@ -49,7 +49,7 @@ def generate_qr_codes():
         # Encrypt the security code part
         encrypted_code = encrypt_aes(code, key, iv)
         
-        # Construct the final URL in the format `http://localhost/verification/get_data.php?hash=ENCODED_KEY`
+        # Construct the final URL in the format `http://yourwebsite.com/verification/get_data.php?hash=ENCODED_KEY`
         final_url = base_url + encrypted_code
         
         # Generate the QR code
