@@ -34,8 +34,8 @@ pip install pycryptodome qrcode[pil] Pillow
 1. Clone the repository to your local machine:
 
     ```bash
-    git clone https://github.com/yourusername/qr-code-generator.git
-    cd qr-code-generator
+    git clone https://github.com/maazmasood/SecureCodeGenerator.git
+    cd SecureCodeGenerator
     ```
 
 2. Run the application:
