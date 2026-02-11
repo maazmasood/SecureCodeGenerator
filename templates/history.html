@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+
+{% block content %}
+<section class="section section-top">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">History</span>
+            <h2 class="section-title">Generated QR Codes</h2>
+            <p class="section-desc">Browse and download QR codes generated during this session.</p>
+        </div>
+
+        {% if items %}
+        <div class="history-actions">
+            <span class="history-count">{{ items|length }} code{{ 's' if items|length != 1 }} generated</span>
+            <form method="POST" action="{{ url_for('clear_history') }}" class="inline-form">
+                <button type="submit" class="btn btn-outline btn-sm" onclick="return confirm('Clear all history?')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                    </svg>
+                    Clear History
+                </button>
+            </form>
+        </div>
+
+        <div class="history-grid">
+            {% for item in items|reverse %}
+            <div class="card glass-card history-card" style="animation-delay: {{ loop.index0 * 0.05 }}s">
+                <div class="history-card-img">
+                    <img src="{{ url_for('download', filename=item.filename) }}" alt="QR for {{ item.code }}"
+                        loading="lazy" />
+                </div>
+                <div class="history-card-body">
+                    <h4 class="history-code">{{ item.code }}</h4>
+                    <span class="history-date">{{ item.created }}</span>
+                    <div class="history-card-actions">
+                        <a href="{{ url_for('download', filename=item.filename) }}" class="btn btn-sm btn-primary"
+                            download>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Download
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline copy-url-btn" data-url="{{ item.url }}"
+                            title="Copy URL">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                            Copy URL
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                opacity="0.25">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+            </svg>
+            <h3>No QR codes yet</h3>
+            <p>Head to the <a href="{{ url_for('index') }}">Generator</a> to create your first encrypted QR code.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
